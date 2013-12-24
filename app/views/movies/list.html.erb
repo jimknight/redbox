@@ -1,2 +1,9 @@
-list
-<%= @result %>
+<% @products.each do |product| %>
+  <h2><%= product["Products"]["Movie"]["Title"] %></h2>
+  <p><%= product["Products"]["Movie"]["SynopsisShort"] %></p>
+  <p><%= product["Products"]["Movie"]["Genres"]["Genre"] %></p>
+  <p>Rated <%= product["Products"]["Movie"]["MPAARating"] %></p>
+  <p>Actors: <%= product["Products"]["Movie"]["Actors"]["Person"].join(", ") %></p>
+  <p>Directors: <%= Array(product["Products"]["Movie"]["Directors"]["Person"]).join(", ") %></p>
+  <p>Release Year: <%= product["Products"]["Movie"]["ReleaseYear"] %></p>
+<% end %>
