@@ -9,13 +9,15 @@ class MoviesController < ApplicationController
     store_id = result["Inventory"]["StoreInventory"][1]["@storeId"] # second giant store near us
     store_api = "https://api.redbox.com/v3/stores?apiKey=#{redbox_api_key}&storeList=#{store_id}"
     store_json = JSON.parse(open(store_api,"Accept" => "application/json").read)
-    product_ids = []
+    product_info = []
     result["Inventory"]["StoreInventory"][1]["ProductInventory"].each do |product|
       if product["@inventoryStatus"] == "InStock"
-        product_ids << product["@productId"]
+        product_api = "https://api.redbox.com/v3/products?apiKey=#{redbox_api_key}&productIds=#{product["@productId"]}"
+        product_json = JSON.parse(open(product_api,"Accept" => "application/json").read)
+        product_info << product_json
       end
     end
-    @result = product_ids
+    @result = product_info
   end
 
 end
