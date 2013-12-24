@@ -19,7 +19,7 @@ development:
   encoding: unicode
   database: redbox_development
   pool: 5
-  username: redbox
+  username: <%= `whoami` %>
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -48,7 +48,7 @@ test:
   encoding: unicode
   database: redbox_test
   pool: 5
-  username: redbox
+  username: <%= `whoami` %>
   password:
 
 production:
@@ -56,5 +56,4 @@ production:
   encoding: unicode
   database: redbox_production
   pool: 5
-  username: redbox
-  password:
+  username: postgres
