@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @product.title %>
+</p>
+
+<p>
+  <strong>Synopsis:</strong>
+  <%= @product.synopsis %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @product.genre %>
+</p>
+
+<p>
+  <strong>Rated:</strong>
+  <%= @product.rated %>
+</p>
+
+<p>
+  <strong>Actors:</strong>
+  <%= @product.actors %>
+</p>
+
+<p>
+  <strong>Directors:</strong>
+  <%= @product.directors %>
+</p>
+
+<p>
+  <strong>Release year:</strong>
+  <%= @product.release_year %>
+</p>
+
+<p>
+  <strong>Critics rating:</strong>
+  <%= @product.critics_rating %>
+</p>
+
+<p>
+  <strong>Critics score:</strong>
+  <%= @product.critics_score %>
+</p>
+
+<p>
+  <strong>Audience rating:</strong>
+  <%= @product.audience_rating %>
+</p>
+
+<p>
+  <strong>Audience score:</strong>
+  <%= @product.audience_score %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
