@@ -1,47 +1,18 @@
-<h1>Listing products</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Synopsis</th>
-      <th>Genre</th>
-      <th>Rated</th>
-      <th>Actors</th>
-      <th>Directors</th>
-      <th>Release year</th>
-      <th>Critics rating</th>
-      <th>Critics score</th>
-      <th>Audience rating</th>
-      <th>Audience score</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.title %></td>
-        <td><%= product.synopsis %></td>
-        <td><%= product.genre %></td>
-        <td><%= product.rated %></td>
-        <td><%= product.actors %></td>
-        <td><%= product.directors %></td>
-        <td><%= product.release_year %></td>
-        <td><%= product.critics_rating %></td>
-        <td><%= product.critics_score %></td>
-        <td><%= product.audience_rating %></td>
-        <td><%= product.audience_score %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+<% @products_genres.sort.each do |genre, products| %>
+  <div data-role="collapsible">
+    <h4><%= genre %></h4>
+    <ul data-role="listview" data-inset="true">
+      <% for product in products %>
+        <li data-role="list-divider"><%= product.title %> <span class="ui-li-count"><%= (product.critics_score + product.audience_score)/2 %></span></li>
+        <li>
+          <p><%= product.synopsis %></p>
+          <p>Actors: <%= product.actors %></p>
+          <p>Release year: <%= product.release_year %></p>
+          <p>Rated: <%= product.rated %></p>
+          <p>Critics: <%= product.critics_rating %> (<%= product.critics_score %>)</p>
+          <p>Audience: <%= product.audience_rating %> (<%= product.audience_score %>)</p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

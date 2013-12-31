@@ -51,3 +51,5 @@ gem 'capistrano', group: :development
 
 gem 'whenever', require: false
 
+gem 'jquery_mobile_rails'
+

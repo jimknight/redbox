@@ -1,14 +1,11 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  # GET /products
-  # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.order(:genre).order("critics_score DESC")
+    @products_genres = @products.group_by { |p| p.genre }
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
   end
 
