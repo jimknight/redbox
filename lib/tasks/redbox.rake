@@ -27,6 +27,7 @@ namespace :redbox do
         rt_get = open(rt_api,"Accept" => "application/json").read
         rt_json = JSON.parse(rt_get)
         Product.create!(
+          :product_id => product_json["Products"]["Movie"]["@productId"],
           :title => product_json["Products"]["Movie"]["Title"],
           :synopsis => product_json["Products"]["Movie"]["SynopsisShort"],
           :genre => product_json["Products"]["Movie"]["Genres"]["Genre"],
