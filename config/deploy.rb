@@ -37,4 +37,4 @@ namespace :deploy do
   end
 end
 
-after 'deploy:finalize_update',  'deploy:upload_settings'
+after 'deploy',  'deploy:upload_settings'
