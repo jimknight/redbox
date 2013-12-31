@@ -7,3 +7,8 @@ Find all movies at Giant that are in inventory and list them
 Phase 2
 
 Make a rake task to go get all the movies in inventory locally
+
+Phase 3
+
+Get this pushed up to a server
+
