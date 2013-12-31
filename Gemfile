@@ -46,3 +46,8 @@ gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+#cron
+
+gem 'whenever', require: false
+
