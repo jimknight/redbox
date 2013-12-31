@@ -16,6 +16,7 @@ namespace :redbox do
     max_loops      = 500
     result["Inventory"]["StoreInventory"][1]["ProductInventory"].each do |product|
       if product["@inventoryStatus"] == "InStock" && max_loops > 0
+        begin
         product_api = "https://api.redbox.com/v3/products?apiKey=#{redbox_api_key}&productIds=#{product["@productId"]}"
         product_json = JSON.parse(open(product_api,"Accept" => "application/json").read)
         product_info << product_json
@@ -24,21 +25,20 @@ namespace :redbox do
         puts movie_title
         rt_api = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=#{rt_api_key}&q=#{movie_title}&page_limit=1"
         rt_get = open(rt_api,"Accept" => "application/json").read
-        begin
-          rt_json = JSON.parse(rt_get)
-          Product.create!(
-            :title => product_json["Products"]["Movie"]["Title"],
-            :synopsis => product_json["Products"]["Movie"]["SynopsisShort"],
-            :genre => product_json["Products"]["Movie"]["Genres"]["Genre"],
-            :rated => product_json["Products"]["Movie"]["MPAARating"],
-            :actors => product_json["Products"]["Movie"]["Actors"]["Person"].join(", "),
-            :directors => Array(product_json["Products"]["Movie"]["Directors"]["Person"]).join(", "),
-            :release_year => product_json["Products"]["Movie"]["ReleaseYear"],
-            :critics_rating => rt_json["movies"][0]["ratings"]["critics_rating"],
-            :critics_score => rt_json["movies"][0]["ratings"]["critics_score"],
-            :audience_rating => rt_json["movies"][0]["ratings"]["audience_rating"],
-            :audience_score => rt_json["movies"][0]["ratings"]["audience_score"]
-          )
+        rt_json = JSON.parse(rt_get)
+        Product.create!(
+          :title => product_json["Products"]["Movie"]["Title"],
+          :synopsis => product_json["Products"]["Movie"]["SynopsisShort"],
+          :genre => product_json["Products"]["Movie"]["Genres"]["Genre"],
+          :rated => product_json["Products"]["Movie"]["MPAARating"],
+          :actors => product_json["Products"]["Movie"]["Actors"]["Person"].join(", "),
+          :directors => Array(product_json["Products"]["Movie"]["Directors"]["Person"]).join(", "),
+          :release_year => product_json["Products"]["Movie"]["ReleaseYear"],
+          :critics_rating => rt_json["movies"][0]["ratings"]["critics_rating"],
+          :critics_score => rt_json["movies"][0]["ratings"]["critics_score"],
+          :audience_rating => rt_json["movies"][0]["ratings"]["audience_rating"],
+          :audience_score => rt_json["movies"][0]["ratings"]["audience_score"]
+        )
         rescue
           # just skip for now
         end
