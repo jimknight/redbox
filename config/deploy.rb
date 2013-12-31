@@ -28,3 +28,13 @@ after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
+
+after "deploy", "deploy:cleanup" # keep only the last 5 releases
+
+namespace :deploy do
+  task :upload_settings do
+    top.upload("config/application.yml", "#{release_path}/config/application.yml", :via => :scp)
+  end
+end
+
+after 'deploy:finalize_update',  'deploy:upload_settings'
