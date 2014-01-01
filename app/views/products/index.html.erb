@@ -11,9 +11,12 @@
           <p>Rated: <%= product.rated %></p>
           <p>Critics: <%= product.critics_rating %> (<%= product.critics_score %>)</p>
           <p>Audience: <%= product.audience_rating %> (<%= product.audience_score %>)</p>
-          <p><a href="#" class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a></p>
+          <p><a href=<%= "http://www.redbox.com/externalcart?titleID=#{product.product_id}&StoreGUID=F77D4E57-8494-4DDB-9BED-00174CA14475" %> class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a></p>
         </li>
       <% end %>
     </ul>
   </div>
 <% end %>
+
+""
+The URL will load a third party cart indicating what movie the user is re
