@@ -16,3 +16,5 @@ Phase 4
 
 Jquery mobile ui
 
+Fix for deploying rails 4 apps with capistrano and asset issue:
+https://github.com/capistrano/capistrano/issues/362
