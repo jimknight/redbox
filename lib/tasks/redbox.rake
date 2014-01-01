@@ -4,7 +4,6 @@ require 'json'
 namespace :redbox do
   desc "update the inventory"
   task :update_inventory => :environment do
-    Product.destroy_all # clear out existing inventory
     redbox_api_key = ENV["REDBOX_API_KEY"]
     rt_api_key     = ENV["ROTTEN_TOMATOES_API_KEY"]
    # url            = "https://api.redbox.com/v3/inventory/stores/postalcode/20176?apiKey=#{redbox_api_key}&retailer=giant&count=2"
@@ -12,6 +11,7 @@ namespace :redbox do
     result         = JSON.parse(open(url,"Accept" => "application/json").read)
     result["Inventory"]["StoreInventory"].each do |store|
       store_id = store["@storeId"]
+      Product.where(:store_id => store_id).destroy_all # clear out existing inventory
       store_api      = "https://api.redbox.com/v3/stores?apiKey=#{redbox_api_key}&storeList=#{store_id}"
     store_json     = JSON.parse(open(store_api,"Accept" => "application/json").read)
     store_name = store_json["StoreBulkList"]["Store"]["Retailer"]
@@ -31,6 +31,7 @@ namespace :redbox do
         rt_get = open(rt_api,"Accept" => "application/json").read
         rt_json = JSON.parse(rt_get)
         Product.create!(
+          :image_url => product_json["Products"]["Movie"]["BoxArtImages"]["link"][0]["@href"],
           :store_id => store_id,
           :store_name => store_name,
           :store_address => store_address,

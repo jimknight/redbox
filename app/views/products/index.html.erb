@@ -8,6 +8,7 @@
           <% for product in products %>
             <li data-role="list-divider"><%= product.title %> <span class="ui-li-count"><%= (product.audience_score) %></span></li>
             <li>
+              <img src="<%= product.image_url %>">
               <p><%= product.synopsis %></p>
               <p>Actors: <%= product.actors %></p>
               <p>Release year: <%= product.release_year %></p>
