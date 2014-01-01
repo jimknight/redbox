@@ -1,19 +1,24 @@
-<% @products_genres.sort.each do |genre, products| %>
+<% @products_store_names.sort.each do |store_name, products| %>
   <div data-role="collapsible">
-    <h4><%= genre %></h4>
-    <ul data-role="listview" data-inset="true">
-      <% for product in products %>
-        <li data-role="list-divider"><%= product.title %> <span class="ui-li-count"><%= (product.critics_score + product.audience_score)/2 %></span></li>
-        <li>
-          <p><%= product.synopsis %></p>
-          <p>Actors: <%= product.actors %></p>
-          <p>Release year: <%= product.release_year %></p>
-          <p>Rated: <%= product.rated %></p>
-          <p>Critics: <%= product.critics_rating %> (<%= product.critics_score %>)</p>
-          <p>Audience: <%= product.audience_rating %> (<%= product.audience_score %>)</p>
-          <p><a href="http://www.redbox.com/externalcart?titleID=<%= product.product_id.downcase %>&amp;StoreGUID=<%= "F77D4E57-8494-4DDB-9BED-00174CA14475".downcase %>" class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a></p>
-        </li>
-      <% end %>
-    </ul>
+    <h4><%= store_name %></h4>
+    <% products.group_by { |p| p.genre }.sort.each do |genre, products| %>
+        <div data-role="collapsible">
+        <h4><%= genre %></h4>
+        <ul data-role="listview" data-inset="true">
+          <% for product in products %>
+            <li data-role="list-divider"><%= product.title %> <span class="ui-li-count"><%= (product.audience_score) %></span></li>
+            <li>
+              <p><%= product.synopsis %></p>
+              <p>Actors: <%= product.actors %></p>
+              <p>Release year: <%= product.release_year %></p>
+              <p>Rated: <%= product.rated %></p>
+              <p>Critics: <%= product.critics_rating %> (<%= product.critics_score %>)</p>
+              <p>Audience: <%= product.audience_rating %> (<%= product.audience_score %>)</p>
+              <p><a href="http://www.redbox.com/externalcart?titleID=<%= product.product_id.downcase %>&amp;StoreGUID=<%= product.store_id.downcase %>" class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a></p>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 <% end %>

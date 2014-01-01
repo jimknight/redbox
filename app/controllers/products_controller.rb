@@ -2,8 +2,8 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.order(:genre).order("critics_score DESC")
-    @products_genres = @products.group_by { |p| p.genre }
+    @products = Product.order(:genre).order("audience_score DESC")
+    @products_store_names = @products.group_by {|p| p.store_name + " (" + p.store_address + ")"}
   end
 
   def show

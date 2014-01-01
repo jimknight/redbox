@@ -7,13 +7,17 @@ namespace :redbox do
     Product.destroy_all # clear out existing inventory
     redbox_api_key = ENV["REDBOX_API_KEY"]
     rt_api_key     = ENV["ROTTEN_TOMATOES_API_KEY"]
-    url            = "https://api.redbox.com/v3/inventory/stores/postalcode/20176?apiKey=#{redbox_api_key}&retailer=giant&count=2"
+   # url            = "https://api.redbox.com/v3/inventory/stores/postalcode/20176?apiKey=#{redbox_api_key}&retailer=giant&count=2"
+    url            = "https://api.redbox.com/v3/inventory/stores/postalcode/20176?apiKey=#{redbox_api_key}"
     result         = JSON.parse(open(url,"Accept" => "application/json").read)
-    store_id       = result["Inventory"]["StoreInventory"][1]["@storeId"] # second giant store near us
-    store_api      = "https://api.redbox.com/v3/stores?apiKey=#{redbox_api_key}&storeList=#{store_id}"
+    result["Inventory"]["StoreInventory"].each do |store|
+      store_id = store["@storeId"]
+      store_api      = "https://api.redbox.com/v3/stores?apiKey=#{redbox_api_key}&storeList=#{store_id}"
     store_json     = JSON.parse(open(store_api,"Accept" => "application/json").read)
+    store_name = store_json["StoreBulkList"]["Store"]["Retailer"]
+    store_address = store_json["StoreBulkList"]["Store"]["Location"]["Address"]
     product_info   = []
-    max_loops      = 500
+    max_loops      = 5000
     result["Inventory"]["StoreInventory"][1]["ProductInventory"].each do |product|
       if product["@inventoryStatus"] == "InStock" && max_loops > 0
         begin
@@ -27,6 +31,9 @@ namespace :redbox do
         rt_get = open(rt_api,"Accept" => "application/json").read
         rt_json = JSON.parse(rt_get)
         Product.create!(
+          :store_id => store_id,
+          :store_name => store_name,
+          :store_address => store_address,
           :product_id => product_json["Products"]["Movie"]["@productId"],
           :title => product_json["Products"]["Movie"]["Title"],
           :synopsis => product_json["Products"]["Movie"]["SynopsisShort"],
@@ -43,6 +50,9 @@ namespace :redbox do
         rescue
           # just skip for now
         end
+    end
+    # store_id       = result["Inventory"]["StoreInventory"][1]["@storeId"] # second giant store near us
+
       end
     end
   end
