@@ -22,6 +22,6 @@
 set :output, "#{path}/log/cron.log"
 job_type :script, "'#{path}/script/:task' :output"
 
-every 24.hours do
+every 60.minutes do
   rake "redbox:update_inventory"
 end
