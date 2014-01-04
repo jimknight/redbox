@@ -1,13 +1,22 @@
 <% @products.each do |product| %>
   <div data-role="collapsible">
     <h4><%= product.title %></h4>
-    <ul>
-      <% product.stores.order(:store_name).each do |store| %>
-        <li>
-          <%= store.store_name %> (<%= store.store_address %>)
-          <a href="http://www.redbox.com/externalcart?titleID=<%= product.product_id.downcase %>&amp;StoreGUID=<%= store.store_id.downcase %>" class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a>
-        </li>
-      <% end %>
+    <ul data-role="listview" data-inset="true">
+      <li data-role="list-divider"><%= product.title %> <span class="ui-li-count"><%= (product.audience_score) %></span></li>
+        <p><img src="<%= product.image_url %>"></p>
+        <p><%= product.synopsis %></p>
+        <p>Actors: <%= product.actors %></p>
+        <p>Release year: <%= product.release_year %></p>
+        <p>Rated: <%= product.rated %></p>
+        <p>Critics: <%= product.critics_rating %> (<%= product.critics_score %>)</p>
+        <p>Audience: <%= product.audience_rating %> (<%= product.audience_score %>)</p>
+        <% product.stores.order(:store_name).each do |store| %>
+          <p>
+            <%= store.store_name %> (<%= store.store_address %>)
+            <a href="http://www.redbox.com/externalcart?titleID=<%= product.product_id.downcase %>&amp;StoreGUID=<%= store.store_id.downcase %>" class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a>
+          </p>
+        <% end %>
+      </li>
     </ul>
   </div>
 <% end %>
