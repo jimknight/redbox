@@ -1,6 +1,13 @@
 <% @products.each do |product| %>
-  <%= product.title %>
-  <% product.stores.each do |store| %>
-    <%= store.store_name %>
-  <% end %>
+  <div data-role="collapsible">
+    <h4><%= product.title %></h4>
+    <ul>
+      <% product.stores.order(:store_name).each do |store| %>
+        <li>
+          <%= store.store_name %> (<%= store.store_address %>)
+          <a href="http://www.redbox.com/externalcart?titleID=<%= product.product_id.downcase %>&amp;StoreGUID=<%= store.store_id.downcase %>" class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>

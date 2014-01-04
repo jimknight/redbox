@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   def index
     # @products = Product.
     # @stores = Store.all
-    @products = Product.order(:genre).order("audience_score DESC")
+    @products = Product.order(:title)
     # @products_store_names = @products.group_by {|p| p.store_name + " (" + p.store_address + ")"}
   end
 
