@@ -38,7 +38,8 @@ namespace :redbox do
             rt_get = open(rt_api,"Accept" => "application/json").read
             rt_json = JSON.parse(rt_get)
             product = Product.find_or_create_by_product_id(
-              :image_url => product_json["Products"]["Movie"]["BoxArtImages"]["link"][0]["@href"],
+              :remote_image_url => product_json["Products"]["Movie"]["BoxArtImages"]["link"][0]["@href"],
+              # :image_url => product_json["Products"]["Movie"]["BoxArtImages"]["link"][0]["@href"],
               :product_id => product_json["Products"]["Movie"]["@productId"],
               :title => product_json["Products"]["Movie"]["Title"],
               :synopsis => product_json["Products"]["Movie"]["SynopsisShort"],
@@ -52,6 +53,7 @@ namespace :redbox do
               :audience_rating => rt_json["movies"][0]["ratings"]["audience_rating"],
               :audience_score => rt_json["movies"][0]["ratings"]["audience_score"]
             )
+binding.pry
           else
             product = Product.find_by_product_id(product_id)
           end
