@@ -7,4 +7,9 @@ class RedboxApi < ActiveRecord::Base
     return JSON.parse(open(url,"Accept" => "application/json").read)
   end
 
+  def self.get_inventory_by_store(store_id)
+    url = "https://api.redbox.com/v3/inventory/stores/#{store_id}?apiKey=#{@@redbox_api_key}"
+    return JSON.parse(open(url,"Accept" => "application/json").read)
+  end
+
 end
