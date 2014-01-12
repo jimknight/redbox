@@ -18,3 +18,7 @@ Jquery mobile ui
 
 Fix for deploying rails 4 apps with capistrano and asset issue:
 https://github.com/capistrano/capistrano/issues/362
+
+Phase 5
+
+Add label for the harris teeter example
