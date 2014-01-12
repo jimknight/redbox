@@ -35,9 +35,13 @@ namespace :deploy do
   task :upload_settings do
     top.upload("config/application.yml", "#{release_path}/config/application.yml", :via => :scp)
   end
+  task :symlink_uploads do
+    run "ln -nfs #{shared_path}/uploads  #{release_path}/public/uploads"
+  end
 end
 
 after 'deploy',  'deploy:upload_settings'
+after 'deploy:update_code', 'deploy:symlink_uploads'
 
 namespace :deploy do
   namespace :assets do
