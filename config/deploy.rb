@@ -41,7 +41,7 @@ namespace :deploy do
 end
 
 after 'deploy',  'deploy:upload_settings'
-after 'deploy:update_code', 'deploy:symlink_uploads'
+after 'deploy', 'deploy:symlink_uploads'
 
 namespace :deploy do
   namespace :assets do
