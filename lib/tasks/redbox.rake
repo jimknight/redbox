@@ -8,7 +8,7 @@ namespace :redbox do
     stores_json = RedboxApi.get_stores_by_zip(zip)
     stores_json.each do |store_json|
       store = Store.find_store_by_id_or_create_new_one(store_json["@storeId"], store_json)
-      store.products.delete # clear out the existing store inventory join table
+      store.products.destroy_all # clear out the existing store inventory join table
       store_inventory_json = RedboxApi.get_inventory_by_store(store.store_id)
       store_inventory_json.each do |product_json|
         if product_json["@inventoryStatus"] == "InStock"
