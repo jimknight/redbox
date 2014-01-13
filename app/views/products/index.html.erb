@@ -3,7 +3,7 @@
     <h4><%= product.title %></h4>
     <ul data-role="listview" data-inset="true">
       <li data-role="list-divider"><%= product.title %> <span class="ui-li-count"><%= (product.audience_score) %></span></li>
-        <p><img src="<%= product.image_url %>"></p>
+        <p><img src="<%= product.image.url %>"></p>
         <p><%= product.synopsis %></p>
         <p>Actors: <%= product.actors %></p>
         <p>Release year: <%= product.release_year %></p>
