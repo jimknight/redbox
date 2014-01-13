@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
 
-  has_and_belongs_to_many :products
+  has_and_belongs_to_many :stores
   mount_uploader :image, ImageUploader
 
   def self.find_product_by_id_or_create_new_one(product_id, product_json)
