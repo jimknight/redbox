@@ -1,7 +1,7 @@
 <% @stores.sort.each do |store| %>
   <div data-role="collapsible">
     <h4><%= store.store_name %> (<%= store.store_address %>)</h4>
-<!--     <% store.products.order("audience_score DESC").group_by { |p| p.genre }.sort.each do |genre, products| %>
+    <% store.products.order("audience_score DESC").group_by { |p| p.genre }.sort.each do |genre, products| %>
         <div data-role="collapsible">
         <h4><%= genre %></h4>
         <ul data-role="listview" data-inset="true">
@@ -20,6 +20,6 @@
           <% end %>
         </ul>
       </div>
-    <% end %> -->
+    <% end %>
   </div>
 <% end %>
