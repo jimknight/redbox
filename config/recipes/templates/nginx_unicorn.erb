@@ -7,6 +7,12 @@ server {
   server_name <%= host_name %> www.<%= host_name %>;
   root <%= current_path %>/public;
 
+  # http://craigjolicoeur.com/blog/setting-static-asset-expires-headers-with-nginx-and-passenger
+  location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
+    expires max;
+    break;
+  }
+
   location ^~ /assets/ {
     gzip_static on;
     expires max;
