@@ -7,7 +7,7 @@ server {
   server_name <%= host_name %> www.<%= host_name %>;
   root <%= current_path %>/public;
 
-  location ~* ^/assets/ {
+  location ~* ^/uploads/ {
     # Per RFC2616 - 1 year maximum expiry
     # http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
     expires 1y;
