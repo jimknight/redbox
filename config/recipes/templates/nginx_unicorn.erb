@@ -7,18 +7,9 @@ server {
   server_name <%= host_name %> www.<%= host_name %>;
   root <%= current_path %>/public;
 
-  location ~* ^/uploads/ {
-    # Per RFC2616 - 1 year maximum expiry
-    # http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
     expires 1y;
-    add_header Cache-Control public;
-
-    # Some browsers still send conditional-GET requests if there's a
-    # Last-Modified header or an ETag header even if they haven't
-    # reached the expiry date sent in the Expires header.
-    add_header Last-Modified "";
-    add_header ETag "";
-    break;
+    log_not_found off;
   }
 
   location ^~ /assets/ {
