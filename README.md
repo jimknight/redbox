@@ -22,3 +22,5 @@ https://github.com/capistrano/capistrano/issues/362
 Phase 5
 
 Add label for the harris teeter example
+Show more info in the link
+

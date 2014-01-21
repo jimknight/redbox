@@ -9,7 +9,7 @@
             <li data-role="list-divider"><%= product.title %> <span class="ui-li-count"><%= (product.audience_score) %></span></li>
             <li>
               <p><img src="<%= product.image.url %>"></p>
-              <p><%= product.synopsis %></p>
+              <p><%= link_to product.synopsis, product_path(product,:store_id => store.store_id.downcase) %></p>
               <p>Actors: <%= product.actors %></p>
               <p>Release year: <%= product.release_year %></p>
               <p>Rated: <%= product.rated %></p>

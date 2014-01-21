@@ -1,59 +1,9 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @product.title %>
-</p>
-
-<p>
-  <strong>Synopsis:</strong>
-  <%= @product.synopsis %>
-</p>
-
-<p>
-  <strong>Genre:</strong>
-  <%= @product.genre %>
-</p>
-
-<p>
-  <strong>Rated:</strong>
-  <%= @product.rated %>
-</p>
-
-<p>
-  <strong>Actors:</strong>
-  <%= @product.actors %>
-</p>
-
-<p>
-  <strong>Directors:</strong>
-  <%= @product.directors %>
-</p>
-
-<p>
-  <strong>Release year:</strong>
-  <%= @product.release_year %>
-</p>
-
-<p>
-  <strong>Critics rating:</strong>
-  <%= @product.critics_rating %>
-</p>
-
-<p>
-  <strong>Critics score:</strong>
-  <%= @product.critics_score %>
-</p>
-
-<p>
-  <strong>Audience rating:</strong>
-  <%= @product.audience_rating %>
-</p>
-
-<p>
-  <strong>Audience score:</strong>
-  <%= @product.audience_score %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<a href = "#" onclick="history.back();" data-back="true">Back</a>
+<p><img src="<%= @product.image.url %>"></p>
+<p><%= @product.synopsis %></p>
+<p>Actors: <%= @product.actors %></p>
+<p>Release year: <%= @product.release_year %></p>
+<p>Rated: <%= @product.rated %></p>
+<p>Critics: <%= @product.critics_rating %> (<%= @product.critics_score %>)</p>
+<p>Audience: <%= @product.audience_rating %> (<%= @product.audience_score %>)</p>
+<p><a href="http://www.redbox.com/externalcart?titleID=<%= @product.product_id.downcase %>&amp;StoreGUID=<%= params[:store_id].downcase %>" class="ui-btn ui-btn-inline ui-btn ui-mini">Reserve</a></p>
